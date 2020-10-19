@@ -8,6 +8,7 @@ public class Account {
     }
 
     public Account(AccountStatus accountStatus) {
+        this.id = id;
         this.accountStatus = accountStatus;
     }
 

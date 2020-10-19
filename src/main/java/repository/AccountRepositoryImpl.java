@@ -1,7 +1,7 @@
 package repository;
 
 
-/*public class AccountRepositoryImpl implements AccountRepository {
+public class AccountRepositoryImpl implements AccountRepository {
     private final String ACCOUNTS = ".\\src\\main\\resources\\Accounts";
     private final AccountRepository accountRepository;
     public AccountRepositoryImpl() {
@@ -19,4 +19,3 @@ package repository;
         writer.flush();
     }
 }
-*/
