@@ -24,5 +24,4 @@ public class Account {
         BANNED,
         DELETED
     }
-
 }
