@@ -1,8 +1,8 @@
-package controller;
+package ru.zagbor.practice.suleimanov.task1.controller;
 
-import model.Account;
-import model.Customer;
-import model.Specialty;
+import ru.zagbor.practice.suleimanov.task1.model.Account;
+import ru.zagbor.practice.suleimanov.task1.model.Customer;
+import ru.zagbor.practice.suleimanov.task1.model.Specialty;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,7 +18,7 @@ public interface CustomerController extends GenericController<Customer, Long> {
 
     boolean isCustomerExist(long id) throws IOException;
 
-    boolean deleteCustomerForID(long id) throws IOException;
+    void deleteCustomerForID(long id) throws IOException;
 
     void changeName(Customer customer, String name) throws IOException;
 
@@ -27,4 +27,5 @@ public interface CustomerController extends GenericController<Customer, Long> {
     void changeAccountStatus(Customer customer, Account.AccountStatus accountStatus) throws IOException;
 
     void deleteSpecialtyCustomer(Customer customer, Specialty specialty) throws IOException;
+
 }

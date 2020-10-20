@@ -1,5 +1,6 @@
-1;Пушкин;2,3;ACTIVE
-1;Лермонтов;3;ACTIVE
-1;Есенин;1;ACTIVE
-1;Пушкин;2,1;ACTIVE
-2;Путин;4;DELETED
+6;Lermontov;3;10007;DELETED
+7;Pushkin;6;10008;ACTIVE
+8;Lermontov;6;10009;DELETED
+9;Spat;5;10010;BANNED
+4;Bunin;3;10004;ACTIVE
+3;Hasim;6;10003;ACTIVE

@@ -1,5 +1,4 @@
-package view;
-
+package ru.zagbor.practice.suleimanov.task1.view;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -19,7 +18,6 @@ public class GeneralMenu {
     }
 
     private void panelGenerator() throws IOException {
-
         while (true) {
             generalPanel();
         }

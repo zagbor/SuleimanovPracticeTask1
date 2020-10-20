@@ -1,14 +1,14 @@
-package view;
+package ru.zagbor.practice.suleimanov.task1.view;
 
-import controller.CustomerController;
-import controller.JavaIOCustomerControllerImpl;
-import controller.JavaIOSpecialtyControllerImpl;
-import controller.SpecialtyController;
-import model.Account;
-import model.Customer;
-import model.Specialty;
-import utils.Utils;
-import utils.UtilsPrint;
+import ru.zagbor.practice.suleimanov.task1.controller.CustomerController;
+import ru.zagbor.practice.suleimanov.task1.controller.JavaIOCustomerControllerImpl;
+import ru.zagbor.practice.suleimanov.task1.controller.JavaIOSpecialtyControllerImpl;
+import ru.zagbor.practice.suleimanov.task1.controller.SpecialtyController;
+import ru.zagbor.practice.suleimanov.task1.model.Account;
+import ru.zagbor.practice.suleimanov.task1.model.Customer;
+import ru.zagbor.practice.suleimanov.task1.model.Specialty;
+import ru.zagbor.practice.suleimanov.task1.utils.Utils;
+import ru.zagbor.practice.suleimanov.task1.utils.UtilsPrint;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -49,6 +49,61 @@ public class AddDeleteMenu {
         }
     }
 
+    private void addCustomerPanel() throws IOException {
+        while (true) {
+            Customer customer = new Customer();
+            System.out.println("Чтобы создать пользователя введите его имя.");
+            System.out.println("Введите \"e\" на английской раскладке, чтобы вернуться назад.");
+            String maybeName = BUFFERED_READER.readLine();
+            if (maybeName.equals("e")) {
+                break;
+            }
+            customer.setName(maybeName);
+            System.out.println("Вы добавили имя клиенту.");
+
+            if (addSpecialties(customer)) {
+                break;
+            }
+
+        }
+    }
+
+    private boolean addSpecialties(Customer customer) throws IOException {
+        Set<Specialty> specialties = new HashSet<>();
+        while (true) {
+            System.out.println("Теперь необходимо добавить пользователю специальности.\nУ клиента их может быть несколько, но не меньше одной. Вводить их нужно по одному. g" +
+                    "Вот список специальностей, которые Вы можете добавить:");
+            if (customer.getSpecialties() == null) {
+                utilsPrint.showSetSpecialties(specialtyController.findAll());
+            } else {
+                utilsPrint.showSetSpecialties(specialtyController.findWhichCanAdd(customer.getSpecialties()));
+            }
+            System.out.println("Введите ID специальности, которую хотите добавить");
+            System.out.println("Введите \"e\" на английской раскладке, чтобы вернуться назад");
+            System.out.println("Введите \"g\" на английской раскладке, чтобы пропустить данный пункт меню");
+            String maybeId = BUFFERED_READER.readLine();
+            if (maybeId.equals("e")) {
+                return false;
+            }
+            if (maybeId.equals("g") && customer.getSpecialties() != null) {
+                if (addAccountStatus(customer)) {
+                    return true;
+                } else {
+                    continue;
+                }
+
+            }
+            long id = Utils.parseLong(maybeId);
+            if (id == -1 || !specialtyController.isSpecialtyExist(id)) {
+                System.err.println("Вы выбрали вариант, которого не существует или не добавили ни одной специальности, попробуйте еще раз.");
+                continue;
+            }
+            specialties.add(specialtyController.getSpecialtyForId(id).get());
+            customer.setSpecialties(specialties);
+            System.out.println("Вы добавили специальность клиенту.");
+        }
+    }
+
     private void deleteCustomerPanel() throws IOException {
         while (true) {
             System.out.println("Вы хотите удалить пользвателя. Вот список пользователей:");
@@ -69,55 +124,7 @@ public class AddDeleteMenu {
         }
     }
 
-    private void addCustomerPanel() throws IOException {
-        while (true) {
-            Customer customer = new Customer();
-            System.out.println("Чтобы создать пользователя введите его имя.");
-            System.out.println("Введите \"e\" на английской раскладке, чтобы вернуться назад.");
-            String maybeName = BUFFERED_READER.readLine();
-            if (maybeName.equals("e")) {
-                break;
-            }
-            customer.setName(maybeName);
-            System.out.println("Вы добавили имя клиенту.");
-            addSpecialties(customer);
-            break;
-        }
-    }
-
-    private void addSpecialties(Customer customer) throws IOException {
-        Set<Specialty> specialties = new HashSet<>();
-        while (true) {
-            System.out.println("Теперь необходимо добавить пользователю специальности.\nУ клиента их может быть несколько, но вводить их нужно по одному." +
-                    "Вот список специальностей, которые Вы можете добавить:");
-            if (customer.getSpecialties()==null) {
-                utilsPrint.showSetSpecialties(specialtyController.findAll());
-            } else {
-                utilsPrint.showSetSpecialties(specialtyController.findWhichCanAdd(customer.getSpecialties()));
-            }
-            System.out.println("Введите ID специальности, которую хотите добавить");
-            System.out.println("Введите \"e\" на английской раскладке, чтобы вернуться назад");
-            System.out.println("Введите \"g\" на английской раскладке, чтобы пропустить данный пункт меню");
-            String maybeId = BUFFERED_READER.readLine();
-            if (maybeId.equals("e")) {
-                break;
-            }
-            if (maybeId.equals("g")) {
-                addAccountStatus(customer);
-                break;
-            }
-            long id = Utils.parseLong(maybeId);
-            if (id == -1 || !specialtyController.isSpecialtyExist(id)) {
-                System.err.println("Вы выбрали вариант, которого не существует, попробуйте еще раз.");
-                continue;
-            }
-            specialties.add(specialtyController.getSpecialtyForId(id).get());
-            customer.setSpecialties(specialties);
-            System.out.println("Вы добавили специальность клиенту.");
-        }
-    }
-
-    private void addAccountStatus(Customer customer) throws IOException {
+    private boolean addAccountStatus(Customer customer) throws IOException {
         while (true) {
             System.out.println("Теперь необходимо добавить пользователю статус аккаунта. " +
                     "Вот список специальностей, которые Вы можете добавить:");
@@ -126,72 +133,39 @@ public class AddDeleteMenu {
             System.out.println("Введите \"e\" на английской раскладке, чтобы вернуться назад");
             String maybeAccountStatus = BUFFERED_READER.readLine();
             if (maybeAccountStatus.equals("e")) {
-                break;
+                return false;
             }
-            Enum<Account.AccountStatus> accountEnum;
+            Account.AccountStatus accountEnum;
             try {
                 accountEnum = Account.AccountStatus.valueOf(maybeAccountStatus);
             } catch (IllegalArgumentException e) {
                 System.err.println("Вы ввели неверный статус, попробуйте еще раз.");
                 continue;
             }
-            customer.setAccount(new Account((Account.AccountStatus) accountEnum));
+            Account account = new Account();
+            account.setAccountStatus(accountEnum);
+            customer.setAccount(account);
             System.out.println("Вы присвоили статус аккаунта клиенту");
-            saveClientPanel(customer);
-            break;
+            if (saveClientPanel(customer)) {
+                return true;
+            }
         }
     }
 
-    private void saveClientPanel(Customer customer) throws IOException {
+    private boolean saveClientPanel(Customer customer) throws IOException {
         while (true) {
             System.out.println("Если хотите сохранить данного клиента в базу введите на английской раскладке \"y\", если хотите выйти назад, то \"e\"");
-            utilsPrint.showCustomer(customer);
+            utilsPrint.showCustomerLessId(customer);
             String choice = BUFFERED_READER.readLine();
             if (choice.equals("e")) {
-                break;
+                return false;
             }
             if (choice.equals("y")) {
                 customerController.create(customer);
                 System.out.println("Вы успешно добавили клиента.");
-                break;
+                return true;
             }
         }
     }
 }
-
-
-
-
-
-
-
-
-
-    /*   private void addData() throws IOException {
-        Customer customer = new Customer();
-
-        String name = ServiceMethods.inputName("Введите имя для нового клиента");
-        customer.setName(name);
-        Set<Specialty> specialties = additionalMenu();
-        specialties.stream().forEach(specialty -> customer.getSpecialties().add(specialty));
-        System.out.println("Вы хотите добавить клиента." + customer + "Чтобы подтвердить введите \"y\"");
-        customerController.create(customer);
-    }*/
-
-
-
-
-
-
-
-  /*  private Specialty chooseSpecialty() throws IOException {
-        System.out.println(specialtyController.findAll());
-        String idSpecialty = BUFFERED_READER.readLine();
-        if (ServiceMethods.parseLong(idSpecialty) == -1) {
-            System.out.println("Вы ввели не число, повторите снова.");
-            chooseSpecialty();
-        }
-        return specialtyController.getSpecialtyForId(Long.parseLong(idSpecialty)).orElseThrow(NoSuchElementException::new);
-    }
-*/
 

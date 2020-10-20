@@ -1,8 +1,8 @@
-package repository;
+package ru.zagbor.practice.suleimanov.task1.repository;
 
-import model.Account;
-import model.Customer;
-import model.Specialty;
+import ru.zagbor.practice.suleimanov.task1.model.Account;
+import ru.zagbor.practice.suleimanov.task1.model.Customer;
+import ru.zagbor.practice.suleimanov.task1.model.Specialty;
 
 import java.io.IOException;
 import java.util.List;
@@ -13,7 +13,7 @@ public interface CustomerRepository extends GenericRepository<Customer, Long> {
 
     List<Customer> findAll() throws IOException;
 
-    boolean deleteCustomerForID(long id) throws IOException;
+    void deleteCustomerForID(long id) throws IOException;
 
     boolean isCustomerExist(long id) throws IOException;
 
@@ -25,4 +25,5 @@ public interface CustomerRepository extends GenericRepository<Customer, Long> {
 
     void deleteSpecialtyCustomer(Customer customer, Specialty specialty) throws IOException;
 
+    void save(Customer customer);
 }

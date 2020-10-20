@@ -1,13 +1,21 @@
-package model;
+package ru.zagbor.practice.suleimanov.task1.model;
 
 public class Account {
     private long id;
     private AccountStatus accountStatus;
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public Account() {
     }
 
-    public Account(AccountStatus accountStatus) {
+    public Account(long id, AccountStatus accountStatus) {
         this.id = id;
         this.accountStatus = accountStatus;
     }

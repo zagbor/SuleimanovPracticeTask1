@@ -1,14 +1,14 @@
-package view;
+package ru.zagbor.practice.suleimanov.task1.view;
 
-import controller.CustomerController;
-import controller.JavaIOCustomerControllerImpl;
-import controller.JavaIOSpecialtyControllerImpl;
-import controller.SpecialtyController;
-import model.Account;
-import model.Customer;
-import model.Specialty;
-import utils.Utils;
-import utils.UtilsPrint;
+import ru.zagbor.practice.suleimanov.task1.controller.CustomerController;
+import ru.zagbor.practice.suleimanov.task1.controller.JavaIOCustomerControllerImpl;
+import ru.zagbor.practice.suleimanov.task1.controller.JavaIOSpecialtyControllerImpl;
+import ru.zagbor.practice.suleimanov.task1.controller.SpecialtyController;
+import ru.zagbor.practice.suleimanov.task1.model.Account;
+import ru.zagbor.practice.suleimanov.task1.model.Customer;
+import ru.zagbor.practice.suleimanov.task1.model.Specialty;
+import ru.zagbor.practice.suleimanov.task1.utils.Utils;
+import ru.zagbor.practice.suleimanov.task1.utils.UtilsPrint;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -31,7 +31,7 @@ public class EditMenu {
         while (true) {
             utilsPrint.showAllListCustomers();
             System.out.println("Чтобы увидеть и/или отредактировать всю информацию по определенному клиенту введите его ID.");
-            System.out.println("Введите \"e\" на английской раскладке, чтобы вернуться назад");
+            System.out.println("Введите \"e\" на английской раскладке, чтобы вернуться назад.");
             String maybeId = BUFFERED_READER.readLine();
             if (maybeId.equals("e")) {
                 break;
@@ -50,8 +50,8 @@ public class EditMenu {
         while (true) {
             Customer customer = customerController.getCustomerForID(id).get();
             utilsPrint.showCustomer(customer);
-            System.out.println("Чтобы отредактировать данные введите номер колонки, которую хотите изменить");
-            System.out.println("Введите \"e\" на английской раскладке, чтобы вернуться назад");
+            System.out.println("Чтобы отредактировать данные введите номер колонки, которую хотите изменить.");
+            System.out.println("Введите \"e\" на английской раскладке, чтобы вернуться назад.");
             String choice = BUFFERED_READER.readLine();
             switch (choice) {
                 case ("1"):
@@ -82,7 +82,7 @@ public class EditMenu {
             availableAccountStatuses.remove(customer.getAccount().getAccountStatus());
             utilsPrint.showListAccountStatus(availableAccountStatuses);
             System.out.println("Введите в панель название статуса большими английскими буквами без пробелов.");
-            System.out.println("Введите \"e\" на английской раскладке, чтобы вернуться назад");
+            System.out.println("Введите \"e\" на английской раскладке, чтобы вернуться назад.");
             String maybeAccountStatus = BUFFERED_READER.readLine();
             if (maybeAccountStatus.equals("e")) {
                 break;
@@ -95,7 +95,7 @@ public class EditMenu {
                 continue;
             }
             if (!availableAccountStatuses.contains(accountEnum)) {
-                System.err.println("Вы ввели неверный статус, попробуйте еще раз.");
+                System.err.println("Вы ввели статус, который уже присвоен клиенту.");
                 continue;
             }
             customerController.changeAccountStatus(customer, Account.AccountStatus.valueOf(maybeAccountStatus));
@@ -111,7 +111,7 @@ public class EditMenu {
             utilsPrint.showCustomer(customer);
             System.out.println("Если вы хотите добавить специальность к клиенту, то введите 1. " +
                     "\nЕсли удалить то введите 2.");
-            System.out.println("Введите \"e\" на английской раскладке, чтобы вернуться назад");
+            System.out.println("Введите \"e\" на английской раскладке, чтобы вернуться назад.");
             String choice = BUFFERED_READER.readLine();
             switch (choice) {
                 case ("1"):
@@ -135,8 +135,8 @@ public class EditMenu {
             Customer customer = customerController.getCustomerForID(id).get();
             System.out.println("Вы хотите удалить специальность у данного клиента, вот список специальностей, которые Вы можете удалить:");
             utilsPrint.showSetSpecialties(customer.getSpecialties());
-            System.out.println("Введите ID специальности, которую хотите удалить у клиента");
-            System.out.println("Введите \"e\" на английской раскладке, чтобы вернуться назад");
+            System.out.println("Введите ID специальности, которую хотите удалить у клиента.");
+            System.out.println("Введите \"e\" на английской раскладке, чтобы вернуться назад.");
             String maybeIdSpecialty = BUFFERED_READER.readLine();
             if (maybeIdSpecialty.equals("e")) {
                 break;
@@ -163,7 +163,7 @@ public class EditMenu {
             Set<Specialty> whichCanAdd = specialtyController.findWhichCanAdd(customer.getSpecialties());
             utilsPrint.showSetSpecialties(whichCanAdd);
             System.out.println("Введите ID специальности, которую хотите добавить клиенту");
-            System.out.println("Введите \"e\" на английской раскладке, чтобы вернуться назад");
+            System.out.println("Введите \"e\" на английской раскладке, чтобы вернуться назад.");
             String maybeIdSpecialty = BUFFERED_READER.readLine();
             if (maybeIdSpecialty.equals("e")) {
                 break;
@@ -186,7 +186,7 @@ public class EditMenu {
     private void changeNamePanel(long id) throws IOException {
         while (true) {
             Customer customer = customerController.getCustomerForID(id).get();
-            System.out.println("Введите новое имя для пользователя: \nили введите \"e\" на английской раскладке, чтобы вернуться назад");
+            System.out.println("Введите новое имя для пользователя: \nили введите \"e\" на английской раскладке, чтобы вернуться назад.");
             String newName = BUFFERED_READER.readLine();
             if (newName.equals("e")) {
                 break;
@@ -197,12 +197,5 @@ public class EditMenu {
             break;
         }
     }
-
-
-
-
-
-
-
 }
 

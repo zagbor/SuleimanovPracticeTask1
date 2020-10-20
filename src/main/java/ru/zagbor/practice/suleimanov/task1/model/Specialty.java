@@ -1,4 +1,4 @@
-package model;
+package ru.zagbor.practice.suleimanov.task1.model;
 
 import java.util.Objects;
 
