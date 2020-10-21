@@ -4,9 +4,7 @@ import ru.zagbor.practice.suleimanov.task1.model.Account;
 
 import java.io.IOException;
 
-public interface AccountRepository {
-
-    void save(Account account) throws IOException;
+public interface AccountRepository extends GenericRepository<Account, Long>{
 
     void deleteAll() throws IOException;
 }

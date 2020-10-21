@@ -17,14 +17,16 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class AddDeleteMenu {
+public class AddDeleteCusomersMenu {
     private final static BufferedReader BUFFERED_READER = new BufferedReader(new InputStreamReader(System.in));
     private final UtilsPrint utilsPrint = new UtilsPrint();
     private final CustomerController customerController = new JavaIOCustomerControllerImpl();
     private final SpecialtyController specialtyController = new JavaIOSpecialtyControllerImpl();
 
-    public AddDeleteMenu() throws IOException {
+    public AddDeleteCusomersMenu() throws IOException {
     }
+
+
 
     public void chooseAddOrDelete() throws IOException {
         while (true) {
@@ -71,10 +73,11 @@ public class AddDeleteMenu {
     private boolean addSpecialties(Customer customer) throws IOException {
         Set<Specialty> specialties = new HashSet<>();
         while (true) {
-            System.out.println("Теперь необходимо добавить пользователю специальности.\nУ клиента их может быть несколько, но не меньше одной. Вводить их нужно по одному. g" +
+            System.out.println("Теперь необходимо добавить пользователю специальности.\nУ клиента их может быть несколько, но не меньше одной." +
+                    " Вводить их нужно по одному." +
                     "Вот список специальностей, которые Вы можете добавить:");
             if (customer.getSpecialties() == null) {
-                utilsPrint.showSetSpecialties(specialtyController.findAll());
+                utilsPrint.showSetSpecialties(specialtyController.getAll());
             } else {
                 utilsPrint.showSetSpecialties(specialtyController.findWhichCanAdd(customer.getSpecialties()));
             }

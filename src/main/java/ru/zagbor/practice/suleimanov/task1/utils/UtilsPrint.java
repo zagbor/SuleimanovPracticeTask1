@@ -40,7 +40,7 @@ public class UtilsPrint {
 
     public void showAllListCustomers() throws IOException {
         System.out.printf("%-5s%-11s%-20s%-11s%n", "ID", "Имя", "Номер аккаунта", "Состояние аккаунта");
-        customerController.findAll().stream().forEach(customer -> System.out.printf("%-5d%-11s%-20d%-11s%n",
+        customerController.getAll().stream().forEach(customer -> System.out.printf("%-5d%-11s%-20d%-11s%n",
                 customer.getId(), customer.getName(), customer.getAccount().getId(), customer.getAccount().getAccountStatus()));
     }
 }

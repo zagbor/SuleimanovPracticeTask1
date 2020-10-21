@@ -1,6 +1,7 @@
 package ru.zagbor.practice.suleimanov.task1.model;
 
 import java.util.Set;
+
 import java.util.stream.Collectors;
 
 public class Customer {
@@ -64,6 +65,9 @@ public class Customer {
     }
 
     public String toStringSpecialties() {
+        if(specialties==null){
+            return "";
+        }
         return specialties.stream()
                 .map(specialties -> specialties.getName())
                 .collect(Collectors.joining(", "));

@@ -8,11 +8,11 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-public interface CustomerController extends GenericController<Customer, Long> {
+public interface CustomerController {
 
     void create(Customer customer) throws IOException;
 
-    List<Customer> findAll() throws IOException;
+    List<Customer> getAll() throws IOException;
 
     Optional<Customer> getCustomerForID(long id) throws IOException;
 

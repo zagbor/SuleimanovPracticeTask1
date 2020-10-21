@@ -17,17 +17,17 @@ public class JavaIOCustomerControllerImpl implements CustomerController {
     public JavaIOCustomerControllerImpl() throws IOException {
     }
     @Override
-    public void create(Customer customer) {
-        customerRepository.save(customer);
+    public void create(Customer customer) throws IOException {
+        customerRepository.create(customer);
     }
 
     @Override
-    public List<Customer> findAll() throws IOException {
-        return customerRepository.findAll();
+    public List<Customer> getAll() throws IOException {
+        return customerRepository.getAll();
     }
     @Override
     public Optional<Customer> getCustomerForID(long id) throws IOException {
-        return customerRepository.getCustomerForID(id);
+        return customerRepository.getById(id);
 
     }
 
@@ -43,7 +43,7 @@ public class JavaIOCustomerControllerImpl implements CustomerController {
 
     @Override
     public void deleteCustomerForID(long id) throws IOException {
-        customerRepository.deleteCustomerForID(id);
+        customerRepository.deleteById(id);
     }
     @Override
     public void changeName(Customer customer, String name) throws IOException {
@@ -57,7 +57,6 @@ public class JavaIOCustomerControllerImpl implements CustomerController {
     public void deleteSpecialtyCustomer(Customer customer, Specialty specialty) throws IOException {
         customerRepository.deleteSpecialtyCustomer(customer, specialty);
     }
-
 }
 
 
